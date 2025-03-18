@@ -6,25 +6,16 @@ import { validateLogin } from '../utils/funcValidate.js';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../auth/AuthContext.js';
-import { getLogin } from '../services/authApi.js';
-import {useSelector, useDispatch} from 'react-redux';
+import { getLogin, getLoginReset } from '../services/authApi.js';
+import {useSelector, useDispatch} from 'react-redux'; 
 
 export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-
-    useEffect (()=>{
-        if(isLoggedIn){
-            alert("로그인 성공\n홈화면으로 이동합니다.")
-            navigate("/") 
-        } else {
-            // alert("아이디와 비밀번호가 일치하지 않습니다.")
-            // navigate("/login")
-        }
-    }, [isLoggedIn]);
-
-    // const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const isError = useSelector(state=> state.login.isError)
+    // const로 선언한 값들은 자바스크립트의 호이스팅을 지켜줘야함. 변수형태로 선언된 것들은 위에서부터 순서대로 생성되기 때문에...
+    // 로그인 성공/실패값을 보내는 current값을 정상적으로 보내기 위해 위에서 선언해준다. 
     const refs = {
         "idRef": useRef(null),
         "pwdRef": useRef(null)
@@ -32,8 +23,33 @@ export default function Login() {
     const msgRefs = {
         "msgRef": useRef(null)
     }
-
+    
     const [formData, setFormData] = useState({ 'id': '', 'pwd': '' });
+
+    //로그인 실패 안내
+    useEffect (()=>{
+        if(isError){
+            alert("로그인 실패\n아이디와 비밀번호가 일치하지 않습니다.")
+            navigate("/login")
+            refs.idRef.current.value=""; // 이 값보다 먼저 const refs가 위에 있어야한다. 
+            refs.pwdRef.current.value="";
+            // isError를 초기화하지 않으면 틀린 아이디-비번으로 로그인했을 때 alert가 뜨지 않는다.
+            // isError 리셋
+            dispatch(getLoginReset());
+            // 이 로그인 값을 authSlice에 보내야하는데 값은 authApi에 있고 이 동작의 트리거는 Login에 있는 것.
+            // 따라서 빈 값인 껍데기를 보낸다. 단방향이므로 돌아오지 않으니 주의
+        }
+    }, [isError]);
+
+    //로그인 성공 안내
+    useEffect (()=>{
+        if(isLoggedIn){
+            alert("로그인 성공\n홈화면으로 이동합니다.")
+            navigate("/") 
+        } 
+    }, [isLoggedIn]);
+
+    // const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
     /** form 데이터 입력 함수 */
     const handleChangeForm = (event) => {

@@ -16,6 +16,7 @@ import MyPage from './pages/MyPage.jsx';
 import { AuthProvider } from './auth/AuthContext.js';
 import { CartProvider } from './context/CartContext.js';
 import { OrderProvider } from './context/OrderContext.js';
+import ScrollToTop from './context/ScrollToTop.js';
 
 export default function App() {
 
@@ -25,6 +26,7 @@ export default function App() {
       <CartProvider>
       <AuthProvider>
       <BrowserRouter>
+      <ScrollToTop />
           <Routes>
               <Route path='/' element={<Layout />} >
                   <Route index element={<Home />} />
