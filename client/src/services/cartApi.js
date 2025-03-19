@@ -93,3 +93,15 @@ export const deleteCartItem = (cid) => async (dispatch) => {
 export const clearAdded = ()=> (dispatch)=>{
     dispatch(setIsAddedReset());
 }
+
+/*************************
+ * 장바구니 전체삭제
+ *************************/
+export const clearCart = ()=> async(dispatch) => {
+    const id = localStorage.getItem("user_id");
+    const url = "http://localhost:9000/cart/clear";
+    const data = {"id": id}
+    const result = await axiosDelete({url, data});
+
+    result.result_rows && dispatch(getCount());
+}

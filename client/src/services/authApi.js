@@ -6,9 +6,7 @@ export const getLoginReset =()=>(dispatch)=>{
 }
 
 export const getLogout = () => (dispatch) => {
-    // 데이터를 넘기는게 아니므로 비동기처리(async/await)는 생략!
-    localStorage.removeItem("token");
-    localStorage.removeItem("user_id");
+    localStorage.clear()
     dispatch(setIsLogout());
 }
 

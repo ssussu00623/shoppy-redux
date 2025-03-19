@@ -1,34 +1,36 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { useOrder } from '../hooks/useOrder.js';
-import { useCart } from '../hooks/useCart.js';
+import { useSearchParams, useNavigate } from "react-router-dom"; 
 import { AuthContext } from "../auth/AuthContext.js";
 import axios from "axios";
-
+import { useSelector, useDispatch } from "react-redux";
+import {saveToOrder} from '../services/orderApi.js'
+import {clearCart} from '../services/cartApi.js'
 
 export default function PaymentSuccess() {
-    const navigate = useNavigate();
-    const { isLoggedIn } = useContext(AuthContext);
+    const dispatch = useDispatch();
+    const navigate = useNavigate(); 
     const [searchParams] = useSearchParams();
     const pg_token = searchParams.get("pg_token");
     const tid = localStorage.getItem("tid");
-    const { saveToOrder } = useOrder();
-    const { clearCart } = useCart();
     const hasCheckedLogin = useRef(false); 
-    const [isRefresh, setIsRefresh] = useState(true);
+    const [isRefresh, setIsRefresh] = useState(true); 
+    const isLoggedIn = useSelector(state => state.login.isLoggedIn); 
+
+    const orderList = useSelector(state => state.order.orderList); 
+    const isSaved = useSelector(state => state.order.isSaved); 
+    const totalPrice= useSelector(state => state.cart.totalPrice); 
 
     useEffect(()=>{  
             if (hasCheckedLogin.current) return;  // true:로그인 상태 -->  블록 return
                 hasCheckedLogin.current = true; 
     
             if(isLoggedIn) {
-                const approvePayment = async () => {
+                const approvePayment =  () => {
                     if (pg_token && tid) {
                         try {                            
-                            const result_rows = await saveToOrder();
-                            if(result_rows) {
-                                const clear_rows = await clearCart();
-                                clear_rows && result_rows && console.log("결제 승인 완료:");
+                            dispatch(saveToOrder(orderList, totalPrice));
+                            if(isSaved) {
+                                dispatch(clearCart());
                             } 
                             
                         } catch (error) {
@@ -44,39 +46,9 @@ export default function PaymentSuccess() {
             }
         } , [isLoggedIn]);
 
-    // useEffect(() => {
-    //     if (hasCheckedLogin.current && isRefresh) {
-    //         return;  // true:로그인 상태 -->  블록 return
-    //     } else {
-
-    //         const approvePayment = async () => {
-    //             if (pg_token && tid) {
-    //                 try {
-    //                     console.log("결제 승인 완료:");
-    //                     // await getOrderList();
-    //                     const result_rows = await saveToOrder();
-    //                     // console.log("결제 승인 완료:2222222222222222");
-    //                 } catch (error) {
-    //                     console.error("결제 승인 실패:", error);
-    //                 }
-    //             }
-    //         };
-    
-    //         approvePayment();
-
-    //         hasCheckedLogin.current = true; 
-    //         // setIsRefresh(true);
-    //     }
-
-        
-    // }, [pg_token, tid]);
-
     console.log('pg_token', pg_token);
     console.log('tid', tid);
     console.log('isRefresh', isRefresh);
-    
-
-
 
     return (        
         <div className="cart-container">                       
