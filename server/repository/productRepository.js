@@ -52,7 +52,7 @@ export const getProduct = async(pid) => {
         group by pid
     `;
     const [result] = await db.execute(sql, [pid]);  // result = [ [{pid:4,~~}], [컬럼명 fields] ]
-    // console.log('result --> ', result[0]);
+    console.log('result --> ', result[0]);
     
     return result[0];
 }

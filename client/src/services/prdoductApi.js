@@ -16,11 +16,13 @@ export const getProductList = () => async (dispatch) => {
 export const getProduct = (pid) => async (dispatch) => {
     const url = "http://localhost:9000/product/detail";
     const data = { "pid": pid }
-
-    const result = await axiosPost({ data, url })
+    
+    const result = await axiosPost({ url, data })
+    console.log('result_api', result);
     const product = result;
     const imgList = result.imgList;
     const detailImgList = result.detailImgList
+    console.log(product);
     
     dispatch(setProduct({product}));
     dispatch(setImgList({imgList}));

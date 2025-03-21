@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     //useState가 하는 일을 한다. 값이 바뀌면 자동으로 브로드 캐스팅으로 업데이트.
     productList : [],
-    produuct: {},
+    product: {},
     imglist: [],
     detailImg: [],
     size : 'xs'
@@ -17,13 +17,13 @@ export const proudctSlice = createSlice({
             state.productList = action.payload.result
         }, 
         setProduct(state, action){
-            state.produuct = action.payload.product
+            state.product = action.payload.product
         },
         setImgList(state, action){ 
-            state.produuct = action.payload.imgList
+            state.imglist = action.payload.imgList
         },
         setDetailImgList(state, action){
-            state.produuct = action.payload.detailImgList
+            state.detailImg = action.payload.detailImgList
         },
         setSize(state, action){
             state.size = action.payload.size

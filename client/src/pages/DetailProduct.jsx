@@ -5,7 +5,6 @@ import Detail from "../components/detail_tabs/Detail.jsx";
 import Review from "../components/detail_tabs/Review.jsx";
 import ImageList from "../components/commons/ImageList.jsx";
 import StarRating from "../components/commons/StarRating.jsx";
-import axios from "axios";
 import { updateCartList, saveToCartList, clearAdded } from "../services/cartApi.js";
 import { useDispatch, useSelector } from "react-redux";
 import {getProduct, getSize} from '../services/prdoductApi.js'
@@ -16,6 +15,8 @@ export default function DetailProduct() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pid } = useParams();
+  console.log('params====>', pid);
+  
 
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const cartList = useSelector(state => state.cart.cartList);
@@ -41,7 +42,7 @@ export default function DetailProduct() {
     dispatch(getProduct(pid)); // useParams는 프러덕트 리스트로 받아오니.. 
     //   .catch((error) => console.log(error));
   }, []);
-
+console.log(product);
 
   /** 장바구니 추가 버튼 이벤트 */
   const addCartItem = () => {
