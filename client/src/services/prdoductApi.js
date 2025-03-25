@@ -5,7 +5,7 @@ import { axiosPost, axiosPut, axiosDelete, axiosGet } from "./api";
  * 상품 전체 리스트
 *********************************/
 export const getProductList = () => async (dispatch) => {
-    const url = 'http://localhost:9000/product/all'
+    const url = 'http://43.201.27.254:9000/product/all'
     const data = null;
     const result = await axiosGet({ data, url });
     dispatch(setProductList({ result }));
@@ -14,7 +14,7 @@ export const getProductList = () => async (dispatch) => {
  * 상품 상세
 *********************************/
 export const getProduct = (pid) => async (dispatch) => {
-    const url = "http://localhost:9000/product/detail";
+    const url = "http://43.201.27.254:9000/product/detail";
     const data = { "pid": pid }
     
     const result = await axiosPost({ url, data })

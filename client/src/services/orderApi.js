@@ -7,7 +7,7 @@ import { setOrderList, setMember, setIsSaveScuccess } from '../features/order/or
  */
 export const getOrderList = () => async (dispatch) => {
     const id = localStorage.getItem("user_id"); // 호이스팅을 위해ㄴ 제일 위에~
-    const url = "http://localhost:9000/order/all";
+    const url = "http://43.201.27.254:9000/order/all";
     const data = { "id": id }
     const result = await axiosPost({ url, data })
     const member = result[0]
@@ -28,7 +28,7 @@ export const paymentKakaoPay = (totalPrice, orderList) => async (dispatch) => {
     const pname = orderList[0].pname.concat(" 외");
     const type = "KAKAO_PAY";
 
-    const url = "http://localhost:9000/payment/qr";
+    const url = "http://43.201.27.254:9000/payment/qr";
     const data = {
         id: id,
         item_name: pname,
@@ -58,7 +58,7 @@ export const paymentKakaoPay = (totalPrice, orderList) => async (dispatch) => {
         const tid = localStorage.getItem("tid"); 
         const type = "KAKAO_PAY";  
         let result_rows = 0;
-        const url = "http://localhost:9000/order/add"
+        const url = "http://43.201.27.254:9000/order/add"
         const data = {  
                 id: id,  
                 tid: tid,

@@ -13,7 +13,7 @@ export const getLogout = () => (dispatch) => {
 export const getLogin = (formData) => async (dispatch) => {
 
     //리액트 ---> 노드서버(express) 데이터 전송 로그인
-    const url = 'http://localhost:9000/member/login'
+    const url = 'http://43.201.27.254:9000/member/login'
     const data = formData;
     
     const loginResult = await axiosPost({url, data})

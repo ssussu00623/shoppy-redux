@@ -66,7 +66,7 @@ export default function Login() {
 
             //리액트 ---> 노드서버(express) 데이터 전송 로그인
             // axios
-            //     .post('http://localhost:9000/member/login', formData)
+            //     .post('http://43.201.27.254:9000/member/login', formData)
             //     .then(res => {
             //         // console.log('res.data-->', res.data) 
             //         if(res.data.result_rows === 1) {

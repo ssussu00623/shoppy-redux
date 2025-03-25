@@ -7,7 +7,7 @@ import { axiosPost, axiosPut, axiosDelete } from "./api";
  */
 export const getCount = () => async (dispatch) => {
     const id = localStorage.getItem("user_id");
-    const url = 'http://localhost:9000/cart/count';
+    const url = 'http://43.201.27.254:9000/cart/count';
     const data = { "id": id };
 
     const result = await axiosPost({ url, data })
@@ -28,7 +28,7 @@ export const clearCount = () => (dispatch) => {
 
 export const getCartList = () => async (dispatch) => {
     const id = localStorage.getItem("user_id");
-    const url = "http://localhost:9000/cart/items";
+    const url = "http://43.201.27.254:9000/cart/items";
     const data = { "id": id };
 
     const result = await axiosPost({ url, data })
@@ -50,7 +50,7 @@ export const clearCartList = () => async (dispatch) => {
  * 장바구니 아이템 수량 업데이트
  */
 export const updateCartList = (cid, type) => async (dispatch) => {
-    const url = "http://localhost:9000/cart/updateQty";
+    const url = "http://43.201.27.254:9000/cart/updateQty";
     const data = { "cid": cid, "type": type }
 
     const result = await axiosPut({ url, data }); //수량이 업데이트 성공 => 카트리스트 다시 가져오기
@@ -63,7 +63,7 @@ export const updateCartList = (cid, type) => async (dispatch) => {
  */
 export const saveToCartList = (cartItem) => async (dispatch) => {
     const id = localStorage.getItem("user_id");
-    const url = "http://localhost:9000/cart/add";
+    const url = "http://43.201.27.254:9000/cart/add";
     const data = { id: id, cartList: [cartItem] };
 
     const result = await axiosPost({ url, data });
@@ -80,7 +80,7 @@ export const saveToCartList = (cartItem) => async (dispatch) => {
  * 장바구니 아이템 삭제
  */
 export const deleteCartItem = (cid) => async (dispatch) => {
-    const url = "http://localhost:9000/cart/deleteItem";
+    const url = "http://43.201.27.254:9000/cart/deleteItem";
     const data = { "cid": cid }
     const result = await axiosDelete({ url, data });
 
@@ -99,7 +99,7 @@ export const clearAdded = ()=> (dispatch)=>{
  *************************/
 export const clearCart = ()=> async(dispatch) => {
     const id = localStorage.getItem("user_id");
-    const url = "http://localhost:9000/cart/clear";
+    const url = "http://43.201.27.254:9000/cart/clear";
     const data = {"id": id}
     const result = await axiosDelete({url, data});
 
