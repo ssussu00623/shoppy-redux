@@ -64,7 +64,7 @@ export const getProduct = async(pid) => {
  */
 export const getList = async() => {
     const sql = `
-        select  pid,
+        select  pid, 
                 pname as name,
                 price,
                 description as info,

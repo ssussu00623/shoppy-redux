@@ -11,7 +11,7 @@ export const getProductList = () => async (dispatch) => {
     dispatch(setProductList({ result }));
 }
 /*********************************
- * 상품 상세
+ * 상품 상세 
 *********************************/
 export const getProduct = (pid) => async (dispatch) => {
     const url = "http://43.201.27.254:9000/product/detail";
